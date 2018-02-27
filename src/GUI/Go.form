@@ -30,12 +30,12 @@
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="151" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" pref="100" max="-2" attributes="0"/>
+              <Component id="goBtn" min="-2" pref="100" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
-              <Component id="jButton2" min="-2" pref="302" max="-2" attributes="0"/>
+              <Component id="emailBtn" min="-2" pref="302" max="-2" attributes="0"/>
               <EmptySpace pref="52" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -45,17 +45,17 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
               <Component id="jTextField1" min="-2" pref="58" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" pref="50" max="-2" attributes="0"/>
-              <EmptySpace pref="77" max="32767" attributes="0"/>
-              <Component id="jButton2" min="-2" pref="71" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+              <Component id="goBtn" min="-2" pref="50" max="-2" attributes="0"/>
+              <EmptySpace pref="65" max="32767" attributes="0"/>
+              <Component id="emailBtn" min="-2" pref="71" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="goBtn">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="KG Broken Vessels Sketch" size="18" style="1"/>
@@ -65,13 +65,16 @@
         </Property>
         <Property name="text" type="java.lang.String" value="GO"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="goBtnActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField1">
       <Properties>
         <Property name="text" type="java.lang.String" value="Pass / Temp Code"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="emailBtn">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="KG Broken Vessels Sketch" size="18" style="1"/>
