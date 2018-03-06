@@ -5,7 +5,13 @@
  */
 package GUI;
 
+import Code.SecurityGenarator;
+import Code.SendMail;
 import java.awt.Color;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.MessagingException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,7 +25,10 @@ public class Go extends javax.swing.JFrame {
     public Go() {
         initComponents();
         this.getContentPane().setBackground(Color.white);
+
     }
+
+    SecurityGenarator secure = new SecurityGenarator("e10adc3949ba59abbe56e057f20f883e");
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -31,7 +40,7 @@ public class Go extends javax.swing.JFrame {
     private void initComponents() {
 
         goBtn = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        jPassFiled = new javax.swing.JTextField();
         emailBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -45,11 +54,24 @@ public class Go extends javax.swing.JFrame {
             }
         });
 
-        jTextField1.setText("Pass / Temp Code");
+        jPassFiled.setText("Pass / Temp Code");
+        jPassFiled.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPassFiledMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPassFiledMouseExited(evt);
+            }
+        });
 
         emailBtn.setFont(new java.awt.Font("KG Broken Vessels Sketch", 1, 18)); // NOI18N
         emailBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/email.png"))); // NOI18N
         emailBtn.setText(" Email a Temp Code");
+        emailBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                emailBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -57,7 +79,7 @@ public class Go extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPassFiled, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(151, 151, 151)
@@ -72,7 +94,7 @@ public class Go extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPassFiled, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(goBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
@@ -86,8 +108,42 @@ public class Go extends javax.swing.JFrame {
 
     private void goBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBtnActionPerformed
         // TODO add your handling code here:
-        
+        if (secure.genarateMd5(jPassFiled.getText()).equals(secure.getCurrentPass())
+                || secure.genarateMd5(jPassFiled.getText()).equals(secure.getRandom())) {
+            PhotoUpload pu = new PhotoUpload();
+            pu.setVisible(true);
+            this.setVisible(false);
+        }
+
     }//GEN-LAST:event_goBtnActionPerformed
+
+    private void jPassFiledMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPassFiledMouseClicked
+        // TODO add your handling code here:
+       if (jPassFiled.getText().equals("Pass / Temp Code")) {
+           jPassFiled.setText("");
+       }
+    }//GEN-LAST:event_jPassFiledMouseClicked
+
+    private void jPassFiledMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPassFiledMouseExited
+        // TODO add your handling code here:
+        if (jPassFiled.getText().isEmpty()) {
+            jPassFiled.setText("Pass / Temp Code");
+        }
+    }//GEN-LAST:event_jPassFiledMouseExited
+
+    private void emailBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailBtnActionPerformed
+        try {
+            // TODO add your handling code here:
+            SendMail mail = new SendMail();
+            mail.emailMe(secure.genarateRandom().toString());
+            emailBtn.setEnabled(false);
+            JOptionPane.showMessageDialog(rootPane, "Email sent, Please check inbox !!");
+
+        } catch (MessagingException ex) {
+            Logger.getLogger(Go.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(rootPane, "Email not sent, Please try again !!");        
+        }
+    }//GEN-LAST:event_emailBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -127,6 +183,6 @@ public class Go extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton emailBtn;
     private javax.swing.JButton goBtn;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jPassFiled;
     // End of variables declaration//GEN-END:variables
 }
