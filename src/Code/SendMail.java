@@ -32,7 +32,7 @@ public class SendMail {
         Session session = Session.getDefaultInstance(props,
                 new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("myfiverr01", "123jm123");
+                return new PasswordAuthentication("myfiverr01", "pass");
             }
         });
 
